@@ -424,15 +424,15 @@ class WhatsappCloud {
     recipientPhone: string | number;
     headerText: string;
     bodyText: string;
-    footerText: string;
+    footerText?: string;
     buttonName: string;
     listOfSections: Radios[];
   }): Promise<WhatsAppResponse> {
     this._mustHaveRecipientPhone(recipientPhone);
 
-    // if (!bodyText) throw new Error('"bodyText" is required in making a request');
-    // if (!headerText) throw new Error('"headerText" is required in making a request');
-    // if (!footerText) throw new Error('"footerText" is required in making a request');
+    if (!bodyText) throw new Error('"bodyText" is required in making a request');
+    if (!headerText) throw new Error('"headerText" is required in making a request');
+    if (!buttonName) throw new Error('"buttonName" is required in making a request');
 
     const validSections = listOfSections
       .map((section) => {
