@@ -1,0 +1,23 @@
+{
+  "name": "wrapper_whatsappcloudapi",
+  "version": "1.0.0",
+  "description": "",
+  "module": "./dist/index.mjs",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shaikh-Danish/whatsapp_cloud_wrapper.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsup"
+  },
+  "keywords": [],
+  "author": "Danish Shaikh",
+  "license": "MIT",
+  "devDependencies": {
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  }
+}
