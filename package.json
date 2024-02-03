@@ -1,9 +1,8 @@
 {
-  "name": "whatsapp-cloud-apiwrapper",
+  "name": "wrapper_whatsapp_cloud_api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-esm ./index.ts"

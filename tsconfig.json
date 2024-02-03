@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
     "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "outDir": "dist",
     "esModuleInterop": true,
+    "target": "ESNext",
+    "moduleResolution": "NodeNext",
     "strict": true,
-    "skipLibCheck": true
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "lib": ["ES2023"]
   },
-  "exclude": ["node_modules"]
+  "include": ["."]
 }

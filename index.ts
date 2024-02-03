@@ -4,7 +4,7 @@ import axios from "axios";
 import fs from "fs";
 import FormData from "form-data";
 
-import messageParser from "./messageParser.js";
+import messageParser from "./messageParser.ts";
 
 interface Headers {
   [key: string]: string;
