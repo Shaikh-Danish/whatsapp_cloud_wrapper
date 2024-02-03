@@ -1,6 +1,5 @@
 "use strict";
 
-import signale from "signale";
 import axios from "axios";
 import fs from "fs";
 import FormData from "form-data";
@@ -136,7 +135,7 @@ class WhatsappCloud {
     }
 
     if (graphAPIVersion) {
-      signale.warn(
+      console.warn(
         `Please note, the default "graphAPIVersion" is v15.0. You are using ${graphAPIVersion}. This may result in quirky behavior.`
       );
     }
@@ -171,17 +170,17 @@ class WhatsappCloud {
       }
 
       if (!method) {
-        signale.warn(
+        console.warn(
           `WARNING: "method" is missing. The default method will default to ${defaultMethod}. If this is not what you want, please specify the method.`
         );
       }
 
       if (!headers) {
-        signale.warn(`WARNING: "headers" is missing.`);
+        console.warn(`WARNING: "headers" is missing.`);
       }
 
       if (method?.toUpperCase() === "POST" && !body) {
-        signale.warn(
+        console.warn(
           `WARNING: "body" is missing. The default body will default to ${JSON.stringify(
             defaultBody
           )}. If this is not what you want, please specify the body.`
