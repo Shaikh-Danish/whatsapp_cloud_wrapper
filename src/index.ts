@@ -1020,6 +1020,96 @@ class WhatsappCloud {
     });
   }
 
+  public async sendFlow({
+    recipientPhone,
+    headerText,
+    bodyText,
+    footerText,
+    buttonName,
+    flowId,
+    flowToken,
+    flowData,
+  }: {
+    recipientPhone: string | number;
+    headerText: string;
+    bodyText: string;
+    footerText?: string;
+    buttonName?: string;
+    flowId: string;
+    flowToken: string;
+    flowData?: {
+      screen: string;
+      data: any;
+    };
+  }) {
+    this._mustHaveRecipientPhone(recipientPhone);
+
+    if (!flowId) {
+      throw new Error('"Flow Id" is required in making a request');
+    }
+
+    if (!flowToken) {
+      throw new Error('"Flow Token" is required in making a reques');
+    }
+
+    if (!headerText) {
+      throw new Error('"Header Text" is required in making a request');
+    }
+
+    if (!bodyText) {
+      throw new Error('"Body Text" is required in making a request');
+    }
+
+    const body: any = {
+      messaging_product: "whatsapp",
+      recipient_type: "individual",
+      to: recipientPhone,
+      type: "interactive",
+      interactive: {
+        type: "list",
+        header: {
+          type: "flow",
+          text: headerText,
+        },
+        body: {
+          text: bodyText,
+        },
+        footer: {
+          text: footerText ?? "",
+        },
+        action: {
+          name: "flow",
+          parameters: {
+            flow_message_version: "3",
+            flow_token: flowToken,
+            flow_id: flowId,
+            flow_cta: buttonName ?? "Select Item",
+            flow_action: "data_exchange",
+          },
+        },
+      },
+    };
+
+    if (flowData) {
+      if (!flowData.screen) {
+        throw new Error("Screen Name is required when sending custom flow data");
+      }
+
+      body.interactive.action.parameters["flow_action_payload"] = {
+        screen: flowData.screen,
+        data: flowData.data,
+      };
+
+      delete body.interactive.action.parameters.flow_action;
+    }
+
+    return await this._makeRequest({
+      url: "/messages",
+      method: "POST",
+      body,
+    });
+  }
+
   public async getUrl({ mediaId }: { mediaId: string }) {
     if (!mediaId) {
       throw new Error("Please provide media id");
@@ -1028,16 +1118,16 @@ class WhatsappCloud {
     const url = `${this.url}/${mediaId}`;
     const headers = {
       Authorization: `Bearer ${this.accessToken}`,
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
+      "Content-Type": "application/x-www-form-urlencoded",
+    };
     const response = await this._makeRequest({
-      url, 
+      url,
       headers,
       method: "GET",
       requestType: "customUrl",
     });
 
-    return response
+    return response;
   }
 }
 

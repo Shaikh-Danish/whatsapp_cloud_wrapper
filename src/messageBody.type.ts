@@ -178,3 +178,57 @@ interface From {
 interface Thread {
   from: From;
 }
+
+export interface RequestBody {
+  messaging_product: string;
+  to: string | number;
+  type: string;
+  text?: {
+    preview_url: boolean;
+    body: string;
+  };
+  interactive?: {
+    type: string;
+    body?: {
+      text?: string;
+    },
+    footer?: {
+      text?: string;
+    },
+    header?: {
+      type: string;
+      text?: string;
+    },
+    action?: {
+      button: string;
+      sections?: Radios[];
+      buttons: ButtonReply[];
+    },
+  }
+  image?: {
+    caption: string;
+    link?: string;
+    id?: string;
+  }
+  video?: {
+    caption: string;
+    link?: string;
+    id?: string;
+  },
+  audio?: {
+    caption: string;
+    link?: string;
+    id?: string;
+  }
+}
+
+interface Radios {
+  title: string;
+  rows?: Row[];
+}
+interface Row {
+  id: string;
+  title: string;
+  description: string;
+}
+
