@@ -15,6 +15,7 @@ interface MakeRequestOptions {
   method?: string;
   headers?: Headers;
   body?: unknown;
+  requestType?: string;
 }
 
 interface Contact {
@@ -107,6 +108,7 @@ class WhatsappCloud {
   private graphAPIVersion: string;
   private senderPhoneNumberId: string;
   private WABA_ID: string;
+  private url: string;
   private baseUrl: string;
 
   constructor({
@@ -124,7 +126,8 @@ class WhatsappCloud {
     this.graphAPIVersion = graphAPIVersion || "v16.0";
     this.senderPhoneNumberId = senderPhoneNumberId;
     this.WABA_ID = WABA_ID;
-    this.baseUrl = `https://graph.facebook.com/${this.graphAPIVersion}/${this.senderPhoneNumberId}`;
+    this.url = `https://graph.facebook.com/${this.graphAPIVersion}`;
+    this.baseUrl = `${this.url}/${this.senderPhoneNumberId}`;
 
     if (!this.accessToken) {
       throw new Error('Missing "accessToken"');
@@ -160,6 +163,7 @@ class WhatsappCloud {
     method,
     headers,
     body,
+    requestType,
   }: MakeRequestOptions): Promise<WhatsAppResponse> {
     return new Promise((resolve, reject) => {
       const defaultBody = {};
@@ -175,9 +179,9 @@ class WhatsappCloud {
         );
       }
 
-      if (!headers) {
-        console.warn(`WARNING: "headers" is missing.`);
-      }
+      // if (!headers) {
+      //   console.warn(`WARNING: "headers" is missing.`);
+      // }
 
       if (method?.toUpperCase() === "POST" && !body) {
         console.warn(
@@ -193,7 +197,13 @@ class WhatsappCloud {
         ...headers,
       };
       body = body || defaultBody;
-      const fullUrl = `${this.baseUrl}${url}`;
+      let fullUrl = "";
+
+      if (requestType === "customUrl") {
+        fullUrl = url;
+      } else {
+        fullUrl = `${this.baseUrl}${url}`;
+      }
 
       axios({
         method: method,
@@ -1008,6 +1018,25 @@ class WhatsappCloud {
       method: "POST",
       body,
     });
+  }
+
+  public async getUrl({ mediaId }: { mediaId: string }) {
+    if (!mediaId) {
+      throw new Error("Please provide media id");
+    }
+
+    const url = `${this.url}/${mediaId}`;
+    const headers = {
+      Authorization: `Bearer ${this.accessToken}`,
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+    const response = await this._makeRequest({
+      url, 
+      headers,
+      method: "GET",
+    });
+
+    return response
   }
 }
 
