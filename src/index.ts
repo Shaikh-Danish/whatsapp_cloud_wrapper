@@ -1066,9 +1066,9 @@ class WhatsappCloud {
       to: recipientPhone,
       type: "interactive",
       interactive: {
-        type: "list",
+        type: "flow",
         header: {
-          type: "flow",
+          type: "text",
           text: headerText,
         },
         body: {
