@@ -107,6 +107,8 @@ export default ({
         msgType = "radio_button_message";
       } else if (interactive?.type === "button_reply") {
         msgType = "simple_button_message";
+      } else if (interactive?.type === "nfm_reply") {
+        msgType = "flow_message";
       }
     } else if (Object.hasOwn(message, "type")) {
       const type = message.type;
