@@ -1034,6 +1034,7 @@ class WhatsappCloud {
       url, 
       headers,
       method: "GET",
+      requestType: "customUrl",
     });
 
     return response
