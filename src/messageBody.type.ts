@@ -87,6 +87,7 @@ interface Interactive {
   type: string;
   button_reply?: ButtonReply;
   list_reply?: ButtonReply;
+  nfm_reply?: FlowReply;
 }
 
 interface ButtonReply {
@@ -94,9 +95,10 @@ interface ButtonReply {
   title: string;
 }
 
-interface ButtonReply {
-  id: string;
-  title: string;
+interface FlowReply {
+  response_json: string;
+  body: string;
+  name: string;
 }
 
 interface Media {
@@ -191,35 +193,35 @@ export interface RequestBody {
     type: string;
     body?: {
       text?: string;
-    },
+    };
     footer?: {
       text?: string;
-    },
+    };
     header?: {
       type: string;
       text?: string;
-    },
+    };
     action?: {
       button: string;
       sections?: Radios[];
       buttons: ButtonReply[];
-    },
-  }
+    };
+  };
   image?: {
     caption: string;
     link?: string;
     id?: string;
-  }
+  };
   video?: {
     caption: string;
     link?: string;
     id?: string;
-  },
+  };
   audio?: {
     caption: string;
     link?: string;
     id?: string;
-  }
+  };
 }
 
 interface Radios {
@@ -231,4 +233,3 @@ interface Row {
   title: string;
   description: string;
 }
-
