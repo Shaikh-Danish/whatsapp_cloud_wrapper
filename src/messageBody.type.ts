@@ -171,6 +171,10 @@ interface ResponseMessage {
   location?: Location;
   contacts?: Contact[];
   audio?: Audio;
+  button?: {
+    payload: string;
+    text: string;
+  }
   thread: Thread | null;
   // message_id: string;
 }
@@ -226,6 +230,10 @@ export interface RequestBody {
     link?: string;
     id?: string;
   };
+  button?: {
+    payload: string;
+    text: string;
+  }
 }
 
 interface Radios {
