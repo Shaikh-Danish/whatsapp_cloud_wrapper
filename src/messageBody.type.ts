@@ -60,6 +60,7 @@ interface WhatsAppMessage {
     from: string;
     id: string;
   };
+  type: string;
   errors?: any;
   text?: TextMessage;
   interactive?: Interactive;
@@ -69,7 +70,10 @@ interface WhatsAppMessage {
   location?: Location;
   contacts?: Contact[];
   audio?: Audio;
-  type: string;
+  button?: {
+    payload: string;
+    text: string;
+  }
 }
 
 interface Error {
