@@ -986,6 +986,38 @@ class WhatsappCloud {
     });
   }
 
+  public async sendLocationCta({
+    recipientPhone,
+    message,
+  }: {
+    recipientPhone: string | number;
+    message: string;
+  }): Promise<unknown> {
+    this._mustHaveRecipientPhone(recipientPhone);
+
+    const body = {
+      messaging_product: "whatsapp",
+      recipient_type: "individual",
+      to: recipientPhone,
+      type: "INTERACTIVE",
+      interactive: {
+        type: "location_request_message",
+        body: {
+          text: message,
+        },
+        action: {
+          name: "send_location",
+        },
+      },
+    };
+
+    return await this._makeRequest({
+      url: "/messages",
+      method: "POST",
+      body,
+    });
+  }
+
   public async sendReactionMessage({
     recipientPhone,
     messageId,
@@ -1112,7 +1144,7 @@ class WhatsappCloud {
 
   public async getUrl({ mediaId }: { mediaId: string }) {
     if (!mediaId) {
-      throw new Error("Please provide media id");
+      throw new Error('"mediaId" is required in making a request');
     }
 
     const url = `${this.url}/${mediaId}`;
@@ -1120,14 +1152,138 @@ class WhatsappCloud {
       Authorization: `Bearer ${this.accessToken}`,
       "Content-Type": "application/x-www-form-urlencoded",
     };
-    const response = await this._makeRequest({
+    return await this._makeRequest({
       url,
       headers,
       method: "GET",
       requestType: "customUrl",
     });
+  }
 
-    return response;
+  public async sendImageById({
+    mediaId,
+    recipientPhone,
+  }: {
+    mediaId: string;
+    recipientPhone: string | number;
+  }): Promise<unknown> {
+    this._mustHaveRecipientPhone(recipientPhone);
+
+    if (!mediaId) {
+      throw new Error('"mediaId" is required in making a request');
+    }
+
+    const body = {
+      messaging_product: "whatsapp",
+      recipient_type: "individual",
+      to: recipientPhone,
+      type: "image",
+      image: {
+        id: mediaId,
+      },
+    };
+
+    return await this._makeRequest({
+      url: "/messages",
+      method: "POST",
+      body,
+    });
+  }
+
+  public async sendVideoById({
+    mediaId,
+    recipientPhone,
+  }: {
+    mediaId: string;
+    recipientPhone: string | number;
+  }): Promise<unknown> {
+    this._mustHaveRecipientPhone(recipientPhone);
+
+    if (!mediaId) {
+      throw new Error('"mediaId" is required in making a request');
+    }
+
+    const body = {
+      messaging_product: "whatsapp",
+      recipient_type: "individual",
+      to: recipientPhone,
+      type: "video",
+      image: {
+        id: mediaId,
+      },
+    };
+
+    return await this._makeRequest({
+      url: "/messages",
+      method: "POST",
+      body,
+    });
+  }
+
+  public async sendAudioById({
+    mediaId,
+    recipientPhone,
+  }: {
+    mediaId: string;
+    recipientPhone: string | number;
+  }): Promise<unknown> {
+    this._mustHaveRecipientPhone(recipientPhone);
+
+    if (!mediaId) {
+      throw new Error('"mediaId" is required in making a request');
+    }
+
+    const body = {
+      messaging_product: "whatsapp",
+      recipient_type: "individual",
+      to: recipientPhone,
+      type: "audio",
+      audio: {
+        id: mediaId,
+      },
+    };
+
+    return await this._makeRequest({
+      url: "/messages",
+      method: "POST",
+      body,
+    });
+  }
+
+  public async sendDocumentById({
+    mediaId,
+    recipientPhone,
+    caption,
+    filename
+  }: {
+    mediaId: string;
+    recipientPhone: string | number;
+    caption?: string;
+    filename?: string;
+  }): Promise<unknown> {
+    this._mustHaveRecipientPhone(recipientPhone);
+
+    if (!mediaId) {
+      throw new Error('"mediaId" is required in making a request');
+    }
+
+    const body = {
+      messaging_product: "whatsapp",
+      recipient_type: "individual",
+      to: recipientPhone,
+      type: "document",
+      document: {
+        id: mediaId,
+        filename,
+        caption
+      },
+    };
+
+    return await this._makeRequest({
+      url: "/messages",
+      method: "POST",
+      body,
+    });
   }
 }
 
