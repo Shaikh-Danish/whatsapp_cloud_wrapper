@@ -57,8 +57,6 @@ export default ({
   }
 
   const changesValue = changes.value;
-  // const metadata = changesValue.metadata;
-  // const contacts = changesValue.contacts?.length ? changesValue.contacts[0] : null;
 
   // ? Messages vs Notifications
   const message = changesValue?.messages?.length ? changesValue.messages[0] : null;
@@ -66,9 +64,6 @@ export default ({
   let notificationMessage = changesValue?.statuses?.length ? changesValue.statuses[0] : null;
 
   const output = {
-    // metadata,
-    // contacts,
-    // WABA_ID: currentWABA_ID,
   } as MessageBody;
 
   if (notificationMessage) {
