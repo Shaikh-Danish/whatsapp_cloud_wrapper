@@ -584,7 +584,7 @@ export default class WhatsAppCloud {
       );
     }
 
-    if (!file_path || !url || !id) {
+    if (!file_path && !url && !id) {
       throw new Error(
         'You must send an image in your "file_path" or an image in a publicly available "url" or uploaded image "id". Provide either "file_path" or "url" or "id".'
       );
@@ -644,7 +644,7 @@ export default class WhatsAppCloud {
       );
     }
 
-    if (!file_path || !url || !id) {
+    if (!file_path && !url && !id) {
       throw new Error(
         'You must send an video in your "file_path" or an video in a publicly available "url" or uploaded video "id". Provide either "file_path" or "url" or "id".'
       );
@@ -702,7 +702,7 @@ export default class WhatsAppCloud {
       );
     }
 
-    if (!file_path || !url || !id) {
+    if (!file_path && !url && !id) {
       throw new Error(
         'You must send an audio in your "file_path" or an audio in a publicly available "url" or uploaded audio "id". Provide either "file_path" or "url" or "id".'
       );
@@ -763,7 +763,7 @@ export default class WhatsAppCloud {
         );
       }
 
-      if (!file_path || !url || !id) {
+      if (!file_path && !url && !id) {
         throw new Error(
           'You must send an document in your "file_path" or an document in a publicly available "url" or uploaded document "id". Provide either "file_path" or "url" or "id".'
         );
@@ -1208,11 +1208,7 @@ export default class WhatsAppCloud {
       throw new Error('You must provide a "language".');
     }
 
-    // if (!mediaUrl && !mediaId) {
-    //   throw new Error('You must provide a "mediaUrl" or "mediaId" property');
-    // }
-
-    if (!mediaUrl || !mediaId) {
+    if (!mediaUrl && !mediaId) {
       throw new Error('You must provide a "mediaUrl" or "mediaId" property');
     }
 
@@ -1532,9 +1528,9 @@ export default class WhatsAppCloud {
       throw new Error('You must provide a "mediaUrl" or "mediaId" property');
     }
 
-    if (!mediaUrl || !mediaId) {
-      throw new Error('You must provide a "mediaUrl" or "mediaId" property');
-    }
+    // if (!mediaUrl || !mediaId) {
+    //   throw new Error('You must provide a "mediaUrl" or "mediaId" property');
+    // }
 
     const body: any = {
       messaging_product: 'whatsapp',
